@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/Page/user/ViewingApplications.dart';
 import 'CreateApplicationPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,14 @@ class Home_page extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Viewingapplications(),
+                      ),
+                    );
+                  },
                   child: const Text('Посмотреть состояние заявок'),
                 ),
                 const SizedBox(
@@ -39,11 +47,12 @@ class Home_page extends StatelessWidget {
                   height: 24,
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      FirebaseAuth.instance.signOut();
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Выйти из аккаунта')),
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Выйти из аккаунта'),
+                ),
               ],
             ),
           ),

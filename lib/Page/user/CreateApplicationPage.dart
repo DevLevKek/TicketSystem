@@ -1,5 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Page/firebase_auth/databaseUser.dart';
+import '';
 
 class CreateApplication extends StatefulWidget {
   const CreateApplication({super.key});
@@ -16,7 +18,7 @@ class CreateApplicationState extends State<CreateApplication> {
   @override
   void initState() {
     super.initState();
-    dbRef = FirebaseDatabase.instance.ref().child('user');
+    dbRef = FirebaseDatabase.instance.ref().child('request');
   }
 
   //Удаляем данные
@@ -43,6 +45,7 @@ class CreateApplicationState extends State<CreateApplication> {
               // obscureText: true,
               controller: _descriptionController,
             ),
+
             const SizedBox(
               height: 24,
             ),
@@ -80,7 +83,9 @@ class CreateApplicationState extends State<CreateApplication> {
             ),
             ElevatedButton(
               onPressed: () {
-                print(dropdownvalue);
+                //print(_descriptionController.text);
+                _sendRequest(_descriptionController.text, dropdownvalue);
+                Navigator.pop(context);
               },
               child: const Text('Создать заявку'),
             )
@@ -89,4 +94,17 @@ class CreateApplicationState extends State<CreateApplication> {
       ),
     );
   }
+}
+
+void _sendRequest(description, urgency) async {
+  String Name = UserDataMain['Name']!;
+  Map<String, dynamic> application = {
+    'name': UserDataMain['email'],
+    'description': description,
+    'urgency': urgency,
+    'Condition': 'Ожидает ответа'
+  };
+  DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('request');
+  
+  dbRef.child(Name).push().set(application);
 }

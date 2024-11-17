@@ -130,6 +130,10 @@ class _LoginUserState extends State<LoginUser> {
       final String emailUser = _emailrnameController.text;
       DatabaseReference ref = FirebaseDatabase.instance.ref('user');
       DatabaseEvent event = await ref.once();
+      //Извлеакаем из БД нужные данные, а именно nameUser
+      //Пример:
+      //                name: Lev
+      //в forEach - это key и value
       Map<dynamic, dynamic> data =
           event.snapshot.value as Map<dynamic, dynamic>;
       data.forEach(
@@ -170,7 +174,7 @@ class _LoginUserState extends State<LoginUser> {
         );
 
         print(UserDataMain);
-        dbRef.child('lev').set(user);
+        // dbRef.child('lev').set(user);
       }
     }
   }
