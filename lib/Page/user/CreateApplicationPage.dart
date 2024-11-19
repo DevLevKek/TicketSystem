@@ -105,6 +105,6 @@ void _sendRequest(description, urgency) async {
     'Condition': 'Ожидает ответа'
   };
   DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('request');
-  
+
   dbRef.child(Name).push().set(application);
 }

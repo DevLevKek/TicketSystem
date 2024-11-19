@@ -5,3 +5,6 @@
 2. Для Админа вывод заявок все клиентов !!!
     - Изменение состояние
 
+(snapshot.value != null)
+                        ? Text(snapshot.child('description').value.toString())
+                        : Text('No Data'));
