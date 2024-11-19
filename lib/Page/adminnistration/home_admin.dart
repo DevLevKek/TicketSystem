@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:flutter_application_1/Page/firebase_auth/databaseUser.dart';
 import 'package:flutter_application_1/Page/user/ViewingApplications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +34,19 @@ class _Home_admin_pageState extends State<Home_admin_page> {
                   },
                   child: const Text('Выйти из аккаунта'),
                 ),
+                Flexible(
+                  child: FirebaseAnimatedList(
+                    query: FirebaseDatabase.instance.ref('request'),
+                    padding: const EdgeInsets.all(24.0),
+                    reverse: false,
+                    itemBuilder: (_, DataSnapshot snapshot,
+                        Animation<double> animatable, int x) {
+                      return ListTile(
+                        subtitle: Text(snapshot.child('name').value.toString()),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -39,4 +54,14 @@ class _Home_admin_pageState extends State<Home_admin_page> {
       ),
     );
   }
+}
+
+void _data_Admin(users) async {
+  DatabaseReference ref = FirebaseDatabase.instance.ref('request');
+  DatabaseEvent event = await ref.once();
+  Map<dynamic, dynamic> data = event.snapshot.value as Map<dynamic, dynamic>;
+  data.forEach((key, value) {
+    users = key;
+    return users;
+  });
 }

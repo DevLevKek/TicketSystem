@@ -29,7 +29,7 @@ class CreateApplicationState extends State<CreateApplication> {
   }
 
   String dropdownvalue = 'Низкий';
-  var items = ['Низкий', 'Средний', 'Высокий', 'Критический', 'Экстренный'];
+  var items = ['Низкий', 'Средний', 'Высокий', 'Критический'];
   //final
   @override
   Widget build(BuildContext context) {
@@ -97,14 +97,15 @@ class CreateApplicationState extends State<CreateApplication> {
 }
 
 void _sendRequest(description, urgency) async {
-  String Name = UserDataMain['Name']!;
+  // String Name = UserDataMain['Name']!;
   Map<String, dynamic> application = {
-    'name': UserDataMain['email'],
+    'email': UserDataMain['email'],
+    'name': UserDataMain['name'],
     'description': description,
     'urgency': urgency,
     'Condition': 'Ожидает ответа'
   };
   DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('request');
 
-  dbRef.child(Name).push().set(application);
+  dbRef.push().set(application);
 }

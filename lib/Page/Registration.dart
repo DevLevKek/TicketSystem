@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Page/firebase_auth/databaseUser.dart';
 import 'firebase_auth/firebase_auth_service.dart';
 import 'user/home_user.dart';
 
@@ -132,6 +133,10 @@ class _RegistState extends State<Regist> {
       final ref = FirebaseDatabase.instance.ref('user');
 
       ref.child(username).set(user_data);
+
+      UserDataMain['email'] = _emailrnameController.text;
+      UserDataMain['Name'] = _usernameController.text;
+      UserDataMain['privilege'] = 'user';
 
       Navigator.push(
         // ignore: use_build_context_synchronously

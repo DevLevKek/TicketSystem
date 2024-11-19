@@ -1,5 +1,5 @@
 Map<String, String> UserDataMain = {
-  'Name': '',
+  'name': '',
   'email': '',
   'privilege': '',
 };

@@ -136,7 +136,7 @@ class _LoginUserState extends State<LoginUser> {
       //в forEach - это key и value
       Map<dynamic, dynamic> data =
           event.snapshot.value as Map<dynamic, dynamic>;
-      data.forEach(             
+      data.forEach(
         (key, value) {
           var nameUser = key;
           // ignore: prefer_const_declarations
@@ -147,7 +147,7 @@ class _LoginUserState extends State<LoginUser> {
             (key, value) {
               if (key == 'email' && value == emailUser) {
                 UserDataMain['email'] = value;
-                UserDataMain['Name'] = nameUser;
+                UserDataMain['name'] = nameUser;
                 privilegeBool = true;
               }
               if (key == 'privilege' && privilegeBool) {
@@ -172,6 +172,7 @@ class _LoginUserState extends State<LoginUser> {
             builder: (context) => const Home_page(),
           ),
         );
+        print(UserDataMain['name']);
 
         print(UserDataMain);
         // dbRef.child('lev').set(user);
