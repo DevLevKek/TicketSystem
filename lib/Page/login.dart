@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'Registration.dart';
 import 'firebase_auth/firebase_auth_service.dart';
 import 'adminnistration/home_admin.dart';
-import 'user/home_user.dart';
 import 'firebase_auth/databaseUser.dart';
-
+import 'user/ViewingApplications.dart';
 class LoginUser extends StatefulWidget {
   const LoginUser({super.key});
 
@@ -40,31 +40,23 @@ class _LoginUserState extends State<LoginUser> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Align(
-          alignment: Alignment.center,
-          child: Container(
-            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-            alignment: Alignment.center,
-            color: Colors.black26,
+        backgroundColor: Color.fromARGB(255, 20, 23, 24),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 //ЗАГОЛОВОК
-                const Text(
+                Text(
                   'Вход',
-                  style: TextStyle(fontSize: 30),
-                ),
-
-                //
-                const SizedBox(
-                  height: 32,
-                ),
-
-                //LOGIN
-                TextField(
-                  decoration: InputDecoration(border: OutlineInputBorder()),
-                  controller: _emailrnameController,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.roboto(
+                    fontSize: 40,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
 
                 //
@@ -72,12 +64,24 @@ class _LoginUserState extends State<LoginUser> {
                   height: 24,
                 ),
 
-                //PASSWORD
-                TextField(
-                  decoration: InputDecoration(border: OutlineInputBorder()),
-                  obscureText: true,
-                  controller: _passwordController,
+                //LOGIN
+                _buildTextField(
+                  controller: _emailrnameController,
+                  hintText: 'Введите почту',
+                  icon: Icons.mail_outline,
                 ),
+
+                //
+                const SizedBox(
+                  height: 12,
+                ),
+
+                //PASSWORD
+                _buildTextField(
+                    controller: _passwordController,
+                    hintText: 'Введите пароль',
+                    icon: Icons.lock_outline,
+                    obscureText: true),
 
                 //
                 const SizedBox(
@@ -89,24 +93,60 @@ class _LoginUserState extends State<LoginUser> {
                   onPressed: () {
                     _signIn();
                   },
-                  child: const Text('Войти'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    backgroundColor: Color.fromARGB(255, 0, 132, 255),
+                  ),
+                  child: Text(
+                    'Войти',
+                    style: GoogleFonts.roboto(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w300),
+                  ),
                 ),
 
                 const SizedBox(
                   height: 12,
                 ),
 
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Regist(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Нет аккаунта?',
+                      style: GoogleFonts.roboto(
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.white70,
+                        ),
                       ),
-                    );
-                  },
-                  child: const Text('Регистрация'),
-                )
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Regist(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Зарегистрируйтесь',
+                        style: GoogleFonts.roboto(
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            color: Color.fromARGB(255, 0, 132, 255),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -169,7 +209,7 @@ class _LoginUserState extends State<LoginUser> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const Home_page(),
+            builder: (context) => const Viewingapplications(),
           ),
         );
         print(UserDataMain['name']);
@@ -179,4 +219,32 @@ class _LoginUserState extends State<LoginUser> {
       }
     }
   }
+}
+
+Widget _buildTextField({
+  required TextEditingController controller,
+  required String hintText,
+  required IconData icon,
+  bool obscureText = false,
+}) {
+  return TextField(
+    controller: controller,
+    obscureText: obscureText,
+    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w100),
+    decoration: InputDecoration(
+      filled: true,
+      fillColor: const Color.fromARGB(255, 35, 38, 39), // Тёмно-серый фон поля
+      hintText: hintText,
+      hintStyle: const TextStyle(
+        color: Color.fromARGB(255, 108, 114, 117),
+        fontSize: 20,
+        fontWeight: FontWeight.w200,
+      ),
+      prefixIcon: Icon(icon, color: Color.fromARGB(255, 108, 114, 117)),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide.none,
+      ),
+    ),
+  );
 }

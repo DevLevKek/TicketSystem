@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Page/firebase_auth/databaseUser.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'firebase_auth/firebase_auth_service.dart';
-import 'user/home_user.dart';
+import 'moduls/home_user.dart';
 
 class Regist extends StatefulWidget {
   const Regist({super.key});
@@ -32,57 +33,58 @@ class _RegistState extends State<Regist> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Align(
-          alignment: Alignment.center,
-          child: Container(
-            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-            alignment: Alignment.center,
-            color: Colors.black26,
+        backgroundColor: Color.fromARGB(255, 20, 23, 24),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 //ЗАГОЛОВОК
-                const Text(
+                Text(
                   'Регистрация',
-                  style: TextStyle(fontSize: 30),
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.roboto(
+                    fontSize: 40,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
 
-                //
-                const SizedBox(
-                  height: 32,
-                ),
-
-                //EMAIL
-                TextField(
-                  decoration:
-                      const InputDecoration(border: OutlineInputBorder()),
-                  controller: _emailrnameController,
-                ),
-
-                //
-                const SizedBox(
-                  height: 32,
-                ),
-
-                //LOGIN
-                TextField(
-                  decoration:
-                      const InputDecoration(border: OutlineInputBorder()),
-                  controller: _usernameController,
-                ),
                 //
                 const SizedBox(
                   height: 24,
                 ),
 
-                //PASSWORD
-                TextField(
-                  decoration:
-                      const InputDecoration(border: OutlineInputBorder()),
-                  obscureText: true,
-                  controller: _passwordController,
+                //LOGIN
+                _buildTextField(
+                  controller: _usernameController,
+                  hintText: 'Введите имя',
+                  icon: Icons.person,
                 ),
+                //
+                const SizedBox(
+                  height: 12,
+                ),
+
+                //EMAIL
+                _buildTextField(
+                  controller: _emailrnameController,
+                  hintText: 'Введите почту',
+                  icon: Icons.mail_outline,
+                ),
+                //
+                const SizedBox(
+                  height: 12,
+                ),
+
+                //PASSWORD
+                _buildTextField(
+                    controller: _passwordController,
+                    hintText: 'Введите пароль',
+                    icon: Icons.lock_outline,
+                    obscureText: true),
 
                 //
                 const SizedBox(
@@ -94,19 +96,59 @@ class _RegistState extends State<Regist> {
                   onPressed: () {
                     _signUp();
                   },
-                  child: const Text('Зарегать :)'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    backgroundColor: Color.fromARGB(255, 0, 132, 255),
+                  ),
+                  child: Text(
+                    'Зарегистрироваться',
+                    style: GoogleFonts.roboto(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w300),
+                  ),
                 ),
+
+                //
                 const SizedBox(
                   height: 12,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(
-                      context,
-                    );
-                  },
-                  child: const Text('Уже есть акк ?'),
-                )
+
+                //
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Есть аккаунт?',
+                      style: GoogleFonts.roboto(
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(
+                          context,
+                        );
+                      },
+                      child: Text(
+                        'Войти',
+                        style: GoogleFonts.roboto(
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            color: Color.fromARGB(255, 0, 132, 255),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -147,4 +189,32 @@ class _RegistState extends State<Regist> {
       );
     }
   }
+}
+
+Widget _buildTextField({
+  required TextEditingController controller,
+  required String hintText,
+  required IconData icon,
+  bool obscureText = false,
+}) {
+  return TextField(
+    controller: controller,
+    obscureText: obscureText,
+    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w100),
+    decoration: InputDecoration(
+      filled: true,
+      fillColor: const Color.fromARGB(255, 35, 38, 39), // Тёмно-серый фон поля
+      hintText: hintText,
+      hintStyle: const TextStyle(
+        color: Color.fromARGB(255, 108, 114, 117),
+        fontSize: 20,
+        fontWeight: FontWeight.w200,
+      ),
+      prefixIcon: Icon(icon, color: Color.fromARGB(255, 108, 114, 117)),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide.none,
+      ),
+    ),
+  );
 }
