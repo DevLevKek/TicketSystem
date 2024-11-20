@@ -230,7 +230,7 @@ Widget _buildTextField({
   return TextField(
     controller: controller,
     obscureText: obscureText,
-    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w100),
+    style: GoogleFonts.roboto(color: Colors.white, fontWeight: FontWeight.w100) ,
     decoration: InputDecoration(
       filled: true,
       fillColor: const Color.fromARGB(255, 35, 38, 39), // Тёмно-серый фон поля

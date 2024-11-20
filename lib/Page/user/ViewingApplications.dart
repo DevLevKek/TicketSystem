@@ -37,7 +37,8 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 20, 23, 24),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+        padding:
+            const EdgeInsets.only(left: 32, right: 32, top: 70, bottom: 25),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -52,9 +53,8 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(
-              height: 12,
-            ),
+
+            //List DataBase
             Flexible(
               child: FirebaseAnimatedList(
                 //Запрос
@@ -63,12 +63,11 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                     .child('request')
                     .orderByChild('name')
                     .equalTo(UserDataMain['name']),
-                padding: const EdgeInsets.all(24.0),
+                //padding: const EdgeInsets.all(24.0),
                 reverse: false,
                 itemBuilder: (_, DataSnapshot snapshot,
                     Animation<double> animatable, int x) {
                   return ListTile(
-                    
                     onTap: UserDataMain['privilege'] == 'admin'
                         ? _showPopupMenu
                         : null,
@@ -77,21 +76,60 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(snapshot.child('description').value.toString()),
+                        //Описание
+                        Text(
+                          snapshot.child('description').value.toString(),
+                          style: GoogleFonts.roboto(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w300),
+                        ),
+
+                        //
+                        SizedBox(
+                          height: 8,
+                        ),
+
+                        //Состояние заявки
+                        Container(
+                          child: Center(
+                            child: Text(
+                              snapshot.child('Condition').value.toString(),
+                              style: GoogleFonts.roboto(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              color: snapshot
+                                          .child('Condition')
+                                          .value
+                                          .toString() ==
+                                      'Ожидает ответа'
+                                  ? const Color.fromARGB(255, 0, 119, 182)
+                                  : snapshot
+                                              .child('Condition')
+                                              .value
+                                              .toString() ==
+                                          'В работе'
+                                      ? const Color.fromARGB(255, 251, 133, 0)
+                                      : const Color.fromARGB(255, 106, 153, 78),
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
                         SizedBox(
                           height: 12,
                         ),
-                        Text(
-                          snapshot.child('Condition').value.toString(),
-                          style:
-                              GoogleFonts.roboto(backgroundColor: Colors.blue),
-                        )
                       ],
                     ),
                     //SUBTITLE
                   );
                 },
               ),
+            ),
+            SizedBox(
+              height: 12,
             ),
             ElevatedButton(
               onPressed: () {
@@ -101,7 +139,20 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                         builder: (context) => CreateApplication()));
                 print(UserDataMain['name']);
               },
-              child: const Text('Вернутся'),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                backgroundColor: Color.fromARGB(255, 0, 132, 255),
+              ),
+              child: Text(
+                'Создать заявку',
+                style: GoogleFonts.roboto(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300),
+              ),
             ),
             const SizedBox(
               height: 24,
@@ -112,3 +163,12 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
     );
   }
 }
+
+// void _CheckApplication() async {
+//   var refDB = FirebaseDatabase.instance
+//                     .ref()
+//                     .child('request')
+//                     .orderByChild('name')
+//                     .equalTo(UserDataMain['name']);
+//   if (refDB.)
+// }

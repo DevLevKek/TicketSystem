@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Page/firebase_auth/databaseUser.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '';
 
 class CreateApplication extends StatefulWidget {
@@ -35,61 +36,114 @@ class CreateApplicationState extends State<CreateApplication> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Column(
-          children: [
-            TextField(
-              // decoration: const InputDecoration(
-              //   border: OutlineInputBorder(),
-              // ),
-              maxLines: 10,
-              // obscureText: true,
-              controller: _descriptionController,
-            ),
+        backgroundColor: Color.fromARGB(255, 20, 23, 24),
+        body: Padding(
+          padding:
+              const EdgeInsets.only(left: 32, right: 32, top: 70, bottom: 25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              //ЗАГОЛОВОК
+              Text(
+                'Ваши заявки',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.roboto(
+                  fontSize: 40,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              SizedBox(
+                height: 24,
+              ),
+              TextField(
+                style: GoogleFonts.roboto(
+                    color: Color.fromARGB(255, 255, 255, 255), fontSize: 20),
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: Color.fromARGB(255, 35, 38, 39),
+                    hintStyle: const TextStyle(
+                      color: Color.fromARGB(255, 108, 114, 117),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w200,
+                    ),
+                    hintText: 'Опишите проблему'),
+                maxLines: 5,
+                // obscureText: true,
+                controller: _descriptionController,
+              ),
 
-            const SizedBox(
-              height: 24,
-            ),
+              const SizedBox(
+                height: 24,
+              ),
 
-            //Уровень срочности
-            DropdownButton(
-              // Initial Value
-              value: dropdownvalue,
+              //Уровень срочности
+              Container(
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 35, 38, 39),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    // Initial Value
+                    value: dropdownvalue,
 
-              // Down Arrow Icon
-              icon: const Icon(Icons.keyboard_arrow_down),
+                    // Down Arrow Icon
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    isExpanded: true,
+                    dropdownColor: Color.fromARGB(255, 35, 38, 39),
+                    borderRadius: BorderRadius.circular(10),
+                    // Array list of items
+                    items: items.map(
+                      (String items) {
+                        return DropdownMenuItem(
+                          value: items,
+                          child: Text(
+                            items,
+                            style: GoogleFonts.roboto(
+                              color: items == 'Низкий'
+                                  ? Color.fromARGB(255, 118, 200, 147)
+                                  : items == 'Средний'
+                                      ? Color.fromARGB(255, 167, 201, 87)
+                                      : items == 'Высокий'
+                                          ? Color.fromARGB(255, 244, 162, 97)
+                                          : Color.fromARGB(255, 231, 111, 81),
+                            ),
+                          ),
+                        );
+                      },
+                    ).toList(),
+                    // After selecting the desired option,it will
+                    // change button value to selected value
+                    onChanged: (String? newValue) {
+                      setState(
+                        () {
+                          dropdownvalue = newValue!;
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
 
-              // Array list of items
-              items: items.map(
-                (String items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Text(items),
-                  );
+              const SizedBox(
+                height: 24,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  //print(_descriptionController.text);
+                  _sendRequest(_descriptionController.text, dropdownvalue);
+                  Navigator.pop(context);
                 },
-              ).toList(),
-              // After selecting the desired option,it will
-              // change button value to selected value
-              onChanged: (String? newValue) {
-                setState(
-                  () {
-                    dropdownvalue = newValue!;
-                  },
-                );
-              },
-            ),
-
-            const SizedBox(
-              height: 24,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                //print(_descriptionController.text);
-                _sendRequest(_descriptionController.text, dropdownvalue);
-                Navigator.pop(context);
-              },
-              child: const Text('Создать заявку'),
-            )
-          ],
+                child: const Text('Создать заявку'),
+              )
+            ],
+          ),
         ),
       ),
     );
