@@ -5,17 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/Page/firebase_auth/databaseUser.dart';
 import 'package:flutter_application_1/Page/user/CreateApplicationPage.dart';
-import 'package:flutter_application_1/Page/user/historyUser.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Viewingapplications extends StatefulWidget {
-  const Viewingapplications({super.key});
+class Historyuser extends StatefulWidget {
+  const Historyuser({super.key});
 
   @override
-  State<Viewingapplications> createState() => _ViewingapplicationsState();
+  State<Historyuser> createState() => _Historyuser();
 }
 
-class _ViewingapplicationsState extends State<Viewingapplications> {
+class _Historyuser extends State<Historyuser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +28,7 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
           children: <Widget>[
             //ЗАГОЛОВОК
             Text(
-              'Ваши заявки',
+              'Завершенные заявки',
               textAlign: TextAlign.center,
               style: GoogleFonts.roboto(
                 fontSize: 40,
@@ -44,7 +43,7 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                 //Запрос
                 query: FirebaseDatabase.instance
                     .ref()
-                    .child('request')
+                    .child('history')
                     .orderByChild('name')
                     .equalTo(UserDataMain['name']),
                 //padding: const EdgeInsets.all(24.0),
@@ -114,11 +113,9 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CreateApplication()));
-                print(UserDataMain['name']);
+                Navigator.pop(
+                  context,
+                );
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -128,36 +125,7 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                 backgroundColor: const Color.fromARGB(255, 0, 132, 255),
               ),
               child: Text(
-                'Создать заявку',
-                style: GoogleFonts.roboto(
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300),
-              ),
-            ),
-            //
-            const SizedBox(
-              height: 12,
-            ),
-
-            //BUTTON
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Historyuser()));
-                print(UserDataMain['name']);
-              },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                backgroundColor: const Color.fromARGB(255, 0, 132, 255),
-              ),
-              child: Text(
-                'Завершенные заявки',
+                'Вернуться',
                 style: GoogleFonts.roboto(
                     color: const Color.fromARGB(255, 255, 255, 255),
                     fontSize: 20,

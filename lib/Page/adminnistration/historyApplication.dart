@@ -45,10 +45,7 @@ class _Historyapplication extends State<Historyapplication> {
                 //Flexible
                 Flexible(
                   child: FirebaseAnimatedList(
-                    query: FirebaseDatabase.instance
-                        .ref('request')
-                        .orderByChild('Condition')
-                        .equalTo('Завершена'),
+                    query: FirebaseDatabase.instance.ref('history'),
                     //padding: const EdgeInsets.all(12.0),
                     reverse: false,
                     itemBuilder: (_, DataSnapshot snapshot,
@@ -65,7 +62,8 @@ class _Historyapplication extends State<Historyapplication> {
                                 Text(
                                   snapshot.child('name').value.toString(),
                                   style: GoogleFonts.roboto(
-                                      color: const Color.fromARGB(255, 255, 255, 255),
+                                      color: const Color.fromARGB(
+                                          255, 255, 255, 255),
                                       fontSize: 18,
                                       fontWeight: FontWeight.w300),
                                 ),
@@ -137,7 +135,8 @@ class _Historyapplication extends State<Historyapplication> {
                             Text(
                               snapshot.child('description').value.toString(),
                               style: GoogleFonts.roboto(
-                                  color: const Color.fromARGB(255, 255, 255, 255),
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
                                   fontSize: 18,
                                   fontWeight: FontWeight.w200),
                             ),

@@ -59,7 +59,8 @@ class CreateApplicationState extends State<CreateApplication> {
               ),
               TextField(
                 style: GoogleFonts.roboto(
-                    color: const Color.fromARGB(255, 255, 255, 255), fontSize: 20),
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    fontSize: 20),
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -111,8 +112,10 @@ class CreateApplicationState extends State<CreateApplication> {
                                   : items == 'Средний'
                                       ? const Color.fromARGB(255, 167, 201, 87)
                                       : items == 'Высокий'
-                                          ? const Color.fromARGB(255, 244, 162, 97)
-                                          : const Color.fromARGB(255, 231, 111, 81),
+                                          ? const Color.fromARGB(
+                                              255, 244, 162, 97)
+                                          : const Color.fromARGB(
+                                              255, 231, 111, 81),
                             ),
                           ),
                         );
@@ -140,7 +143,20 @@ class CreateApplicationState extends State<CreateApplication> {
                   _sendRequest(_descriptionController.text, dropdownvalue);
                   Navigator.pop(context);
                 },
-                child: const Text('Создать заявку'),
+                child: Text(
+                  'Создать заявку',
+                  style: GoogleFonts.roboto(
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300),
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 0, 132, 255),
+                ),
               )
             ],
           ),

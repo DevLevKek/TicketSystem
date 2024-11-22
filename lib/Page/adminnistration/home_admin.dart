@@ -70,14 +70,39 @@ class _Home_admin_pageState extends State<Home_admin_page> {
                             items: [
                               PopupMenuItem(
                                 onTap: () {
+                                  Map<String, dynamic> application = {
+                                    'email': snapshot
+                                        .child('email')
+                                        .value
+                                        .toString(),
+                                    'name':
+                                        snapshot.child('name').value.toString(),
+                                    'description': snapshot
+                                        .child('description')
+                                        .value
+                                        .toString(),
+                                    'urgency': snapshot
+                                        .child('urgency')
+                                        .value
+                                        .toString(),
+                                    'Condition': "Завершена"
+                                  };
+                                  print(application);
                                   snapshot.ref
                                       .child(id)
-                                      .update({'Condition': 'Завершена'});
+                                      .remove();
+
+                                  DatabaseReference dbRef = FirebaseDatabase
+                                      .instance
+                                      .ref()
+                                      .child('history');
+                                  dbRef.push().set(application);
                                 },
                                 child: Text(
                                   "Завершена",
                                   style: GoogleFonts.roboto(
-                                      color: const Color.fromARGB(255, 255, 255, 255),
+                                      color: const Color.fromARGB(
+                                          255, 255, 255, 255),
                                       fontSize: 16,
                                       fontWeight: FontWeight.w300),
                                 ),
@@ -91,7 +116,8 @@ class _Home_admin_pageState extends State<Home_admin_page> {
                                 child: Text(
                                   "В работе",
                                   style: GoogleFonts.roboto(
-                                      color: const Color.fromARGB(255, 255, 255, 255),
+                                      color: const Color.fromARGB(
+                                          255, 255, 255, 255),
                                       fontSize: 16,
                                       fontWeight: FontWeight.w300),
                                 ),
@@ -112,7 +138,8 @@ class _Home_admin_pageState extends State<Home_admin_page> {
                                 Text(
                                   snapshot.child('name').value.toString(),
                                   style: GoogleFonts.roboto(
-                                      color: const Color.fromARGB(255, 255, 255, 255),
+                                      color: const Color.fromARGB(
+                                          255, 255, 255, 255),
                                       fontSize: 18,
                                       fontWeight: FontWeight.w300),
                                 ),
@@ -184,7 +211,8 @@ class _Home_admin_pageState extends State<Home_admin_page> {
                             Text(
                               snapshot.child('description').value.toString(),
                               style: GoogleFonts.roboto(
-                                  color: const Color.fromARGB(255, 255, 255, 255),
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
                                   fontSize: 18,
                                   fontWeight: FontWeight.w200),
                             ),
@@ -202,7 +230,8 @@ class _Home_admin_pageState extends State<Home_admin_page> {
                                   style: GoogleFonts.roboto(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w300,
-                                    color: const Color.fromARGB(255, 255, 255, 255),
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255),
                                   ),
                                 ),
                               ),
