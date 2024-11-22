@@ -15,27 +15,10 @@ class Viewingapplications extends StatefulWidget {
 }
 
 class _ViewingapplicationsState extends State<Viewingapplications> {
-  _showPopupMenu() async {
-    await showMenu(
-      context: context,
-      position: RelativeRect.fill,
-      items: [
-        PopupMenuItem(
-          child: Text("Menu 2"),
-        ),
-        PopupMenuItem(
-          child: Text("Menu 3"),
-          value: 'lev',
-        ),
-      ],
-      elevation: 8.0,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 20, 23, 24),
+      backgroundColor: const Color.fromARGB(255, 20, 23, 24),
       body: Padding(
         padding:
             const EdgeInsets.only(left: 32, right: 32, top: 70, bottom: 25),
@@ -49,7 +32,7 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
               textAlign: TextAlign.center,
               style: GoogleFonts.roboto(
                 fontSize: 40,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -68,9 +51,6 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                 itemBuilder: (_, DataSnapshot snapshot,
                     Animation<double> animatable, int x) {
                   return ListTile(
-                    onTap: UserDataMain['privilege'] == 'admin'
-                        ? _showPopupMenu
-                        : null,
                     //TITLE
                     title: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -80,13 +60,13 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                         Text(
                           snapshot.child('description').value.toString(),
                           style: GoogleFonts.roboto(
-                              color: Color.fromARGB(255, 255, 255, 255),
+                              color: const Color.fromARGB(255, 255, 255, 255),
                               fontSize: 18,
                               fontWeight: FontWeight.w300),
                         ),
 
                         //
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
 
@@ -98,7 +78,7 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                               style: GoogleFonts.roboto(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
-                                color: Color.fromARGB(255, 255, 255, 255),
+                                color: const Color.fromARGB(255, 255, 255, 255),
                               ),
                             ),
                           ),
@@ -118,7 +98,7 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                                       : const Color.fromARGB(255, 106, 153, 78),
                               borderRadius: BorderRadius.circular(10)),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                       ],
@@ -128,7 +108,7 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                 },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             ElevatedButton(
@@ -136,7 +116,7 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CreateApplication()));
+                        builder: (context) => const CreateApplication()));
                 print(UserDataMain['name']);
               },
               style: ElevatedButton.styleFrom(
@@ -144,12 +124,12 @@ class _ViewingapplicationsState extends State<Viewingapplications> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                backgroundColor: Color.fromARGB(255, 0, 132, 255),
+                backgroundColor: const Color.fromARGB(255, 0, 132, 255),
               ),
               child: Text(
                 'Создать заявку',
                 style: GoogleFonts.roboto(
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     fontSize: 20,
                     fontWeight: FontWeight.w300),
               ),

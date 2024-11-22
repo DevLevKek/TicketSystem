@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Page/firebase_auth/databaseUser.dart';
+import 'package:flutter_application_1/Page/user/ViewingApplications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'firebase_auth/firebase_auth_service.dart';
 import 'moduls/home_user.dart';
@@ -33,7 +34,7 @@ class _RegistState extends State<Regist> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 20, 23, 24),
+        backgroundColor: const Color.fromARGB(255, 20, 23, 24),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -47,7 +48,7 @@ class _RegistState extends State<Regist> {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.roboto(
                     fontSize: 40,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -101,12 +102,12 @@ class _RegistState extends State<Regist> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    backgroundColor: Color.fromARGB(255, 0, 132, 255),
+                    backgroundColor: const Color.fromARGB(255, 0, 132, 255),
                   ),
                   child: Text(
                     'Зарегистрироваться',
                     style: GoogleFonts.roboto(
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                         fontSize: 20,
                         fontWeight: FontWeight.w300),
                   ),
@@ -177,14 +178,14 @@ class _RegistState extends State<Regist> {
       ref.child(username).set(user_data);
 
       UserDataMain['email'] = _emailrnameController.text;
-      UserDataMain['Name'] = _usernameController.text;
+      UserDataMain['name'] = _usernameController.text;
       UserDataMain['privilege'] = 'user';
-
+      print(UserDataMain);
       Navigator.push(
         // ignore: use_build_context_synchronously
         context,
         MaterialPageRoute(
-          builder: (context) => Home_page(),
+          builder: (context) => const Viewingapplications(),
         ),
       );
     }
@@ -210,7 +211,7 @@ Widget _buildTextField({
         fontSize: 20,
         fontWeight: FontWeight.w200,
       ),
-      prefixIcon: Icon(icon, color: Color.fromARGB(255, 108, 114, 117)),
+      prefixIcon: Icon(icon, color: const Color.fromARGB(255, 108, 114, 117)),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide.none,

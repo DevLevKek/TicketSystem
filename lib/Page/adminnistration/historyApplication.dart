@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:flutter_application_1/Page/adminnistration/historyApplication.dart';
 import 'package:flutter_application_1/Page/firebase_auth/databaseUser.dart';
 import 'package:flutter_application_1/Page/user/ViewingApplications.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,19 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Home_admin_page extends StatefulWidget {
-  const Home_admin_page({super.key});
+class Historyapplication extends StatefulWidget {
+  const Historyapplication({super.key});
 
   @override
-  State<Home_admin_page> createState() => _Home_admin_pageState();
+  State<Historyapplication> createState() => _Historyapplication();
 }
 
-class _Home_admin_pageState extends State<Home_admin_page> {
-  // _showPopupMenu() async {
-  //   print('ssssss');
-  //   await
-  // }
-
+class _Historyapplication extends State<Historyapplication> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,7 +33,7 @@ class _Home_admin_pageState extends State<Home_admin_page> {
               children: [
                 //
                 Text(
-                  'Актуальные заявки',
+                  'Завершенные заявки',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.roboto(
                     fontSize: 40,
@@ -47,60 +41,19 @@ class _Home_admin_pageState extends State<Home_admin_page> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-// snapshot.child('Condition').value.toString() !=
-//                                 'Завершена'
-//                             ?
+
                 //Flexible
                 Flexible(
                   child: FirebaseAnimatedList(
                     query: FirebaseDatabase.instance
                         .ref('request')
-                        .orderByChild('Condition'),
-                    //.('Завершена'),
+                        .orderByChild('Condition')
+                        .equalTo('Завершена'),
                     //padding: const EdgeInsets.all(12.0),
                     reverse: false,
                     itemBuilder: (_, DataSnapshot snapshot,
                         Animation<double> animatable, int x) {
                       return ListTile(
-                        onTap: () {
-                          String id = snapshot.key.toString();
-                          showMenu(
-                            context: context,
-                            position: RelativeRect.fill,
-                            items: [
-                              PopupMenuItem(
-                                onTap: () {
-                                  snapshot.ref
-                                      .child(id)
-                                      .update({'Condition': 'Завершена'});
-                                },
-                                child: Text(
-                                  "Завершена",
-                                  style: GoogleFonts.roboto(
-                                      color: const Color.fromARGB(255, 255, 255, 255),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w300),
-                                ),
-                              ),
-                              PopupMenuItem(
-                                onTap: () {
-                                  snapshot.ref
-                                      .child(id)
-                                      .update({'Condition': 'В работе'});
-                                },
-                                child: Text(
-                                  "В работе",
-                                  style: GoogleFonts.roboto(
-                                      color: const Color.fromARGB(255, 255, 255, 255),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w300),
-                                ),
-                              ),
-                            ],
-                            color: const Color.fromARGB(255, 35, 38, 39),
-                            elevation: 8.0,
-                          );
-                        },
                         title: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -202,7 +155,8 @@ class _Home_admin_pageState extends State<Home_admin_page> {
                                   style: GoogleFonts.roboto(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w300,
-                                    color: const Color.fromARGB(255, 255, 255, 255),
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255),
                                   ),
                                 ),
                               ),
@@ -232,10 +186,9 @@ class _Home_admin_pageState extends State<Home_admin_page> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Historyapplication()));
+                    Navigator.pop(
+                      context,
+                    );
                     print(UserDataMain['name']);
                   },
                   style: ElevatedButton.styleFrom(
@@ -246,7 +199,7 @@ class _Home_admin_pageState extends State<Home_admin_page> {
                     backgroundColor: const Color.fromARGB(255, 0, 132, 255),
                   ),
                   child: Text(
-                    'Завершенные заявки',
+                    'Вернуться',
                     style: GoogleFonts.roboto(
                         color: const Color.fromARGB(255, 255, 255, 255),
                         fontSize: 20,

@@ -20,6 +20,7 @@ Widget _buildTextField({
         fontSize: 20,
         fontWeight: FontWeight.w200,
       ),
+      // ignore: prefer_const_constructors
       prefixIcon: Icon(icon, color: Color.fromARGB(255, 108, 114, 117)),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),

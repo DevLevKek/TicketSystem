@@ -7,6 +7,7 @@ import 'firebase_auth/firebase_auth_service.dart';
 import 'adminnistration/home_admin.dart';
 import 'firebase_auth/databaseUser.dart';
 import 'user/ViewingApplications.dart';
+
 class LoginUser extends StatefulWidget {
   const LoginUser({super.key});
 
@@ -40,7 +41,7 @@ class _LoginUserState extends State<LoginUser> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 20, 23, 24),
+        backgroundColor: const Color.fromARGB(255, 20, 23, 24),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -54,7 +55,7 @@ class _LoginUserState extends State<LoginUser> {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.roboto(
                     fontSize: 40,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -98,12 +99,12 @@ class _LoginUserState extends State<LoginUser> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    backgroundColor: Color.fromARGB(255, 0, 132, 255),
+                    backgroundColor: const Color.fromARGB(255, 0, 132, 255),
                   ),
                   child: Text(
                     'Войти',
                     style: GoogleFonts.roboto(
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                         fontSize: 20,
                         fontWeight: FontWeight.w300),
                   ),
@@ -158,46 +159,37 @@ class _LoginUserState extends State<LoginUser> {
   void _signIn() async {
     String email = _emailrnameController.text;
     String password = _passwordController.text;
-
     User? user = await _auth.signInWithEmailAndPassword(email, password);
 
     if (user != null) {
       print("User is successfully signedIn");
-      Map<String, String> user = {
-        'name': _emailrnameController.text,
-        'privilege': 'user'
-      };
       final String emailUser = _emailrnameController.text;
+
       DatabaseReference ref = FirebaseDatabase.instance.ref('user');
       DatabaseEvent event = await ref.once();
-      //Извлеакаем из БД нужные данные, а именно nameUser
-      //Пример:
-      //                name: Lev
-      //в forEach - это key и value
       Map<dynamic, dynamic> data =
           event.snapshot.value as Map<dynamic, dynamic>;
       data.forEach(
         (key, value) {
+          
           var nameUser = key;
-          // ignore: prefer_const_declarations
-          var privilegeBool = false;
-          final Map<dynamic, dynamic> dataValue =
-              value as Map<dynamic, dynamic>;
-          dataValue.forEach(
+          Map<dynamic, dynamic> data_dd = value as Map<dynamic, dynamic>;
+          data_dd.forEach(
             (key, value) {
-              if (key == 'email' && value == emailUser) {
-                UserDataMain['email'] = value;
+              print(key);
+              if (key == 'email' && value == email) {
+                print(key);
                 UserDataMain['name'] = nameUser;
-                privilegeBool = true;
-              }
-              if (key == 'privilege' && privilegeBool) {
-                var privilegeBool = false;
-                UserDataMain['privilege'] = value;
               }
             },
           );
         },
       );
+      var datebase = event.snapshot.child(UserDataMain['name'].toString());
+      UserDataMain['email'] = datebase.child('email').value.toString();
+      UserDataMain['privilege'] = datebase.child('privilege').value.toString();
+      print(UserDataMain);
+
       if (UserDataMain['privilege'] == 'admin') {
         Navigator.push(
           context,
@@ -212,10 +204,7 @@ class _LoginUserState extends State<LoginUser> {
             builder: (context) => const Viewingapplications(),
           ),
         );
-        print(UserDataMain['name']);
-
         print(UserDataMain);
-        // dbRef.child('lev').set(user);
       }
     }
   }
@@ -230,7 +219,7 @@ Widget _buildTextField({
   return TextField(
     controller: controller,
     obscureText: obscureText,
-    style: GoogleFonts.roboto(color: Colors.white, fontWeight: FontWeight.w100) ,
+    style: GoogleFonts.roboto(color: Colors.white, fontWeight: FontWeight.w100),
     decoration: InputDecoration(
       filled: true,
       fillColor: const Color.fromARGB(255, 35, 38, 39), // Тёмно-серый фон поля

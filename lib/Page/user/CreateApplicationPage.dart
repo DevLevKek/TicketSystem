@@ -36,7 +36,7 @@ class CreateApplicationState extends State<CreateApplication> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 20, 23, 24),
+        backgroundColor: const Color.fromARGB(255, 20, 23, 24),
         body: Padding(
           padding:
               const EdgeInsets.only(left: 32, right: 32, top: 70, bottom: 25),
@@ -50,23 +50,23 @@ class CreateApplicationState extends State<CreateApplication> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.roboto(
                   fontSize: 40,
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               TextField(
                 style: GoogleFonts.roboto(
-                    color: Color.fromARGB(255, 255, 255, 255), fontSize: 20),
+                    color: const Color.fromARGB(255, 255, 255, 255), fontSize: 20),
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                     filled: true,
-                    fillColor: Color.fromARGB(255, 35, 38, 39),
+                    fillColor: const Color.fromARGB(255, 35, 38, 39),
                     hintStyle: const TextStyle(
                       color: Color.fromARGB(255, 108, 114, 117),
                       fontSize: 20,
@@ -84,10 +84,10 @@ class CreateApplicationState extends State<CreateApplication> {
 
               //Уровень срочности
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 35, 38, 39),
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                padding: EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton(
                     // Initial Value
@@ -96,7 +96,7 @@ class CreateApplicationState extends State<CreateApplication> {
                     // Down Arrow Icon
                     icon: const Icon(Icons.keyboard_arrow_down),
                     isExpanded: true,
-                    dropdownColor: Color.fromARGB(255, 35, 38, 39),
+                    dropdownColor: const Color.fromARGB(255, 35, 38, 39),
                     borderRadius: BorderRadius.circular(10),
                     // Array list of items
                     items: items.map(
@@ -107,12 +107,12 @@ class CreateApplicationState extends State<CreateApplication> {
                             items,
                             style: GoogleFonts.roboto(
                               color: items == 'Низкий'
-                                  ? Color.fromARGB(255, 118, 200, 147)
+                                  ? const Color.fromARGB(255, 118, 200, 147)
                                   : items == 'Средний'
-                                      ? Color.fromARGB(255, 167, 201, 87)
+                                      ? const Color.fromARGB(255, 167, 201, 87)
                                       : items == 'Высокий'
-                                          ? Color.fromARGB(255, 244, 162, 97)
-                                          : Color.fromARGB(255, 231, 111, 81),
+                                          ? const Color.fromARGB(255, 244, 162, 97)
+                                          : const Color.fromARGB(255, 231, 111, 81),
                             ),
                           ),
                         );
